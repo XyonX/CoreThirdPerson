@@ -3,10 +3,6 @@
 
 #include "ThirdPersonAnimInstance.h"
 
-// MyAnimInstance.cpp
-
-#include "MyAnimInstance.h"
-
 UThirdPersonAnimInstance::UThirdPersonAnimInstance()
 {
 	// Initialize default values for AnimationData
