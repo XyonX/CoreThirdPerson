@@ -4,21 +4,11 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "CorePlugin/Data/AnimationData.h"
 #include "ThirdPersonAnimInstance.generated.h"
 
-USTRUCT(BlueprintType)
-struct FMyAnimationData
-{
-	GENERATED_BODY()
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	float MovementSpeed;
-
-	UPROPERTY(EditAnywhere, BlueprintReadWrite)
-	bool bIsJumping;
-
-	// Add more animation-related variables as needed
-};
+struct FThirdPersonAnimInstanceProxy;
 
 UCLASS()
 class CORETHIRDPERSON_API UThirdPersonAnimInstance : public UAnimInstance
@@ -28,17 +18,23 @@ class CORETHIRDPERSON_API UThirdPersonAnimInstance : public UAnimInstance
 public:
 	UThirdPersonAnimInstance();
 
+	//Function only called at the starting
+	virtual void NativeInitializeAnimation() override;
+
+	//Ignore this function to Increase performance
 	// Called every frame
-	virtual void NativeUpdateAnimation(float DeltaTime) override;
+	//virtual void NativeUpdateAnimation(float DeltaTime) override;
+	void Receiver_AnimationData (FAnimationData InAnimData);
 
 	// Function to update animation data
 	UFUNCTION(BlueprintCallable, Category = "Animation")
-	void UpdateAnimationData(float Speed, bool bJumping);
-
+	void UpdateAnimationData(FAnimationData InAnimationData);
+	
 protected:
 	// Animation data that can be accessed from Blueprint
-	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Animation")
-	FMyAnimationData AnimationData;
+	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Data")
+	FAnimationData AnimationData;
 
-	// Add more animation-related variables and functions as needed
+	TSharedPtr<FThirdPersonAnimInstanceProxy>Proxy;
 };
+
