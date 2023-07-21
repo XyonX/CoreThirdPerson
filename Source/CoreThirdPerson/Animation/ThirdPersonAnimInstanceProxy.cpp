@@ -2,24 +2,38 @@
 
 
 #include "ThirdPersonAnimInstanceProxy.h"
+#include "CorePlugin/Data/AnimationData.h"
 
 
 FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy()
 {
 }
 
-FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance)
-	: FAnimInstanceProxy(InAnimInstance)
+FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance,TSharedPtr<UThirdPersonAnimInstance> InThirdPersonAnimInstance)
+: FAnimInstanceProxy(InAnimInstance)//, ThirdPersonAnimInstance(InThirdPersonAnimInstance)
+
 {
 	// Initialize default values for AnimationData
 	AnimationData.MovementSpeed = 0.0f;
 	AnimationData.bIsJumping = false;
 }
 
-void FThirdPersonAnimInstanceProxy::UpdateAnimationData(const FMyAnimationData& NewAnimationData)
+
+bool FThirdPersonAnimInstanceProxy::Evaluate(FPoseContext& Output)
 {
-	// Update the AnimationData with the provided data from the game thread
-	AnimationData = NewAnimationData;
+	// Lock the critical section for safe data access
+	FScopeLock Lock(&CriticalSection);
+	
+	//Program Logic Base on the Anim Data
+
+
+
+	// Let the base FAnimInstanceProxy handle the rest of the animation evaluation
+	return FAnimInstanceProxy::Evaluate(Output);
 }
 
-// Add more functions and logic for other animation calculations if needed
+void FThirdPersonAnimInstanceProxy::UpdateAnimationData(const FAnimationData& NewAnimationData)
+{
+	// Update the AnimationData with the provided data from the anim instance
+	AnimationData = NewAnimationData;
+}

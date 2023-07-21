@@ -1,9 +1,12 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ThirdPersonAnimInstance.h"
 #include "Animation/AnimInstanceProxy.h"
+#include "Templates/SharedPointer.h"
 #include "ThirdPersonAnimInstanceProxy.generated.h"
+
+struct FAnimationData;
+class UThirdPersonAnimInstance;
 
 // Create a custom AnimInstanceProxy struct
 USTRUCT()
@@ -14,17 +17,28 @@ struct CORETHIRDPERSON_API FThirdPersonAnimInstanceProxy : public FAnimInstanceP
 public:
 	// Constructor
 	FThirdPersonAnimInstanceProxy();
-	FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance);
+	FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance, TSharedPtr<UThirdPersonAnimInstance> InThirdPersonAnimInstance); // Updated parameter type
 
-	// Function to update the animation data from the game thread
-	void UpdateAnimationData(const FMyAnimationData& NewAnimationData);
+
+	//Actual function to calculate the character data
+	virtual bool Evaluate(FPoseContext& Output) override;
+
+	void UpdateAnimationData(const FAnimationData& NewAnimationData);
 
 	// Override the FAnimInstanceProxy functions if needed
 	// For example, you can override Update, GatherBonesToUpdate, etc.
 
 	protected:
+	
 	// Animation data that can be accessed from the rendering thread
-	FMyAnimationData AnimationData;
+	FAnimationData AnimationData;
 
-	// Add more animation-related variables and functions as needed
+
+	// Reference to the owning UMyAnimInstance
+	UPROPERTY()
+	//UThirdPersonAnimInstance*ThirdPersonAnimInstance;
+	UThirdPersonAnimInstance* ThirdPersonAnimInstance;
+	
+	// Critical section for synchronization
+	FCriticalSection CriticalSection;
 };
