@@ -37,7 +37,7 @@ public class CoreThirdPerson : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore",
+				"SlateCore", "CorePlugin",
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
