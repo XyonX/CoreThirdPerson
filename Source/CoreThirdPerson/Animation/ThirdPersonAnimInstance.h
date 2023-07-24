@@ -31,6 +31,10 @@ public:
 	void UpdateAnimationData(FAnimationData InAnimationData);
 	
 protected:
+
+	/** Default Animation data to start with */
+	FAnimationData DefaultAnimationData;
+	
 	// Animation data that can be accessed from Blueprint
 	UPROPERTY(BlueprintReadOnly, VisibleAnywhere, Category = "Data")
 	FAnimationData AnimationData;
