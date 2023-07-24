@@ -2,27 +2,31 @@
 
 
 #include "ThirdPersonAnimInstanceProxy.h"
+
+#include "ThirdPersonAnimInstance.h"
 #include "CorePlugin/Data/AnimationData.h"
+#include "Kismet/GameplayStatics.h"
 
 
 FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy()
 {
 }
 
-FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance,TSharedPtr<UThirdPersonAnimInstance> InThirdPersonAnimInstance)
-: FAnimInstanceProxy(InAnimInstance)//, ThirdPersonAnimInstance(InThirdPersonAnimInstance)
+FThirdPersonAnimInstanceProxy::FThirdPersonAnimInstanceProxy(UThirdPersonAnimInstance* InThirdPersonAnimInstance)
+:	FAnimInstanceProxy(InThirdPersonAnimInstance),
+ThirdPersonAnimInstance(InThirdPersonAnimInstance)
 
 {
 	// Initialize default values for AnimationData
-	AnimationData.MovementSpeed = 0.0f;
-	AnimationData.bIsJumping = false;
+	//AnimationData.MovementSpeed = 0.0f;
+	//AnimationData.bIsJumping = false;
 }
 
 
 bool FThirdPersonAnimInstanceProxy::Evaluate(FPoseContext& Output)
 {
 	// Lock the critical section for safe data access
-	FScopeLock Lock(&CriticalSection);
+	//FScopeLock Lock(&CriticalSection);
 	
 	//Program Logic Base on the Anim Data
 

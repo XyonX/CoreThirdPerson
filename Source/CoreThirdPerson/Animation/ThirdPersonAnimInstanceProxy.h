@@ -2,7 +2,6 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstanceProxy.h"
-#include "Templates/SharedPointer.h"
 #include "ThirdPersonAnimInstanceProxy.generated.h"
 
 struct FAnimationData;
@@ -15,30 +14,32 @@ struct CORETHIRDPERSON_API FThirdPersonAnimInstanceProxy : public FAnimInstanceP
 	GENERATED_BODY()
 
 public:
-	// Constructor
+	/** Constructor */
 	FThirdPersonAnimInstanceProxy();
-	FThirdPersonAnimInstanceProxy(UAnimInstance* InAnimInstance, TSharedPtr<UThirdPersonAnimInstance> InThirdPersonAnimInstance); // Updated parameter type
+	
+	FThirdPersonAnimInstanceProxy(UThirdPersonAnimInstance* InThirdPersonAnimInstance);
 
 
-	//Actual function to calculate the character data
+	/**Actual function to calculate the character data */
 	virtual bool Evaluate(FPoseContext& Output) override;
 
+	//** Setter Function to set the Animation Data */
 	void UpdateAnimationData(const FAnimationData& NewAnimationData);
 
-	// Override the FAnimInstanceProxy functions if needed
-	// For example, you can override Update, GatherBonesToUpdate, etc.
-
-	protected:
 	
-	// Animation data that can be accessed from the rendering thread
+protected:
+	
+	/** Animation data that can be accessed from the rendering thread */
 	FAnimationData AnimationData;
 
 
-	// Reference to the owning UMyAnimInstance
+	/** Reference to the owning UMyAnimInstance */
 	UPROPERTY()
-	//UThirdPersonAnimInstance*ThirdPersonAnimInstance;
 	UThirdPersonAnimInstance* ThirdPersonAnimInstance;
 	
-	// Critical section for synchronization
-	FCriticalSection CriticalSection;
+	/** Critical section for synchronization */
+	//FCriticalSection CriticalSection;
+	//FThreadSafeBool bIsUpdating;
+	/** Critical section for synchronization */
+	//mutable FCriticalSection CriticalSection;
 };
