@@ -31,10 +31,6 @@
 			"Enabled": true
 		},
 		{
-			"Name": "CoreAnimation",
-			"Enabled": true
-		},
-		{
 			"Name": "CorePlugin",
 			"Enabled": true
 		}

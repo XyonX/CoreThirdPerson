@@ -26,6 +26,7 @@ public class CoreThirdPerson : ModuleRules
 			new string[]
 			{
 				"Core",
+				"EnhancedInput",
 				// ... add other public dependencies that you statically link with here ...
 			}
 			);
@@ -37,7 +38,7 @@ public class CoreThirdPerson : ModuleRules
 				"CoreUObject",
 				"Engine",
 				"Slate",
-				"SlateCore", "CorePlugin",
+				"SlateCore", "CorePlugin", 
 				// ... add private dependencies that you statically link with here ...	
 			}
 			);
