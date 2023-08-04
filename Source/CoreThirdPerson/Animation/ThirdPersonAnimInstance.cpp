@@ -1,4 +1,8 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/******************************************************************************
+* Project Core - Generic UE Project
+* Copyright (c) [2023] [ Joydip chakraborty ]
+* This class is part of the ProjectCore open-source project. 
+* ******************************************************************************/
 
 
 #include "ThirdPersonAnimInstance.h"
@@ -9,7 +13,7 @@ UThirdPersonAnimInstance::UThirdPersonAnimInstance()
 : AnimationData() // Initializes the AnimationData struct with default values (e.g., 0.0f and false)
 
 {
-	DefaultAnimationData.MovementSpeed=400;
+	DefaultAnimationData.Velocity=400;
 	DefaultAnimationData.bIsJumping=false;
 	
 	// Initialize default values for AnimationData
@@ -23,7 +27,7 @@ void UThirdPersonAnimInstance::NativeInitializeAnimation()
 	// Send a reference of the anim data to the proxy class
 	Proxy->UpdateAnimationData(AnimationData);
 
-	ADelegateHelper::Delegate_UpdateAnimationDataDelegate.AddDynamic(this,&UThirdPersonAnimInstance::Receiver_AnimationData);
+	ADelegateHelper::Transmitter_AnimationData.AddDynamic(this,&UThirdPersonAnimInstance::Receiver_AnimationData);
 	
 }
 

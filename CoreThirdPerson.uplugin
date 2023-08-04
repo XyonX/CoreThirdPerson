@@ -33,6 +33,10 @@
 		{
 			"Name": "CorePlugin",
 			"Enabled": true
+		},
+		{
+			"Name": "CorePlayer",
+			"Enabled": true
 		}
 	]
 }

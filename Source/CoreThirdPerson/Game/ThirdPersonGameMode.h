@@ -1,13 +1,17 @@
-// Fill out your copyright notice in the Description page of Project Settings.
+/******************************************************************************
+* Project Core - Generic UE Project
+* Copyright (c) [2023] [ Joydip chakraborty ]
+* This class is part of the ProjectCore open-source project. 
+* ******************************************************************************/
 
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameMode.h"
+#include "CoreGameManager/GameModes/CoreGameMode.h"
 #include "ThirdPersonGameMode.generated.h"
 
 UCLASS(Blueprintable)
-class CORETHIRDPERSON_API AThirdPersonGameMode : public AGameModeBase
+class CORETHIRDPERSON_API AThirdPersonGameMode : public ACoreGameMode
 {
 	GENERATED_BODY()
 
